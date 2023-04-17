@@ -2,8 +2,8 @@ import { useEffect, useRef, useState } from "react";
 import Peer from "peerjs";
 import copyTextToClipboard from './copy'
 import styles from './styles.module.scss'
-import { Alert, Button, Divider, Input, List, message, Row, Space, Spin, Tag } from "antd";
-
+import { Alert, Button, Divider, Input, List, message, Row, Space, Spin, Tag, Collapse } from "antd";
+const { Panel } = Collapse;
 const { TextArea } = Input;
 const App = () => {
   const [loading, setLoading] = useState(true);
@@ -138,15 +138,6 @@ const App = () => {
         console.log(err);
       });
   }
-  const [myVideo, setMyVideo] = useState(false)
-  const [uVideo, setUVideo] = useState(false)
-  const triggerMyVideo = () => {
-    setMyVideo(!myVideo)
-  }
-  const triggerUVideo = () => {
-    setUVideo(!uVideo)
-  }
-
 
   return (
     <div className={styles.container}>
@@ -167,30 +158,23 @@ const App = () => {
         </Space>
       </Space>
 
-      <Divider orientation='left'></Divider>
-      <Space>
-        <Button onClick={triggerMyVideo}>{myVideo ? '显示我的视频' : '关闭我的视频'}</Button>
-        <Button onClick={triggerUVideo}>{uVideo ? '显示对方视频' : '关闭对方视频'}</Button>
-      </Space>
-      <Divider />
-
       <Row gutter={16} className={styles.live} >
         <Space direction="vertical" style={{ margin: 'auto', width: '100%' }}>
           <Row>
-            {myVideo ?
-              <></> : <>
-                <Divider orientation='left'>本地摄像头</Divider>
+            <Divider orientation='left'>本地摄像头</Divider>
+            <Collapse defaultActiveKey={['1']} style={{ width: '100%' }}>
+              <Panel header="显示/关闭" key="1">
                 <video controls autoPlay ref={localVideo} muted />
-              </>
-            }
+              </Panel>
+            </Collapse>
           </Row>
           <Row >
-            {uVideo ?
-              <></> : <>
-                <Divider orientation='left'>对方摄像头</Divider>
-                <video controls autoPlay ref={remoteVideo} />
-              </>
-            }
+            <Divider orientation='left'>对方摄像头</Divider>
+            <Collapse defaultActiveKey={['1']} style={{ width: '100%' }}>
+              <Panel header="显示/关闭" key="1">
+                <video controls autoPlay ref={remoteVideo} hidden={uVideo} />
+              </Panel>
+            </Collapse>
           </Row>
         </Space>
 

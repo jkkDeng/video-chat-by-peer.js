@@ -172,7 +172,7 @@ const App = () => {
             <Divider orientation='left'>对方摄像头</Divider>
             <Collapse defaultActiveKey={['1']} style={{ width: '100%' }}>
               <Panel header="显示/关闭" key="1">
-                <video controls autoPlay ref={remoteVideo} hidden={uVideo} />
+                <video controls autoPlay ref={remoteVideo} />
               </Panel>
             </Collapse>
           </Row>

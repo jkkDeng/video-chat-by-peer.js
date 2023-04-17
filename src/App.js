@@ -141,6 +141,7 @@ const App = () => {
 
   return (
     <div className={styles.container}>
+      <Alert message='手机浏览器大部分不支持生成ID，目前发现微信内置浏览器支持' closable />
       <Alert message='本通话不经过服务器完成两点之间的数据传输，请勿涉及任何隐私，且传输未必安全' closable />
 
       <Divider orientation='left'>本地ID</Divider>
